@@ -18,7 +18,7 @@ class PostAdmin extends BaseController
 
     //--------------------------------------------------------------
 
-    public function preview($id)
+    public function preview(int $id)
     {
         $post = new PostModel();
         $data['post'] = $post->where('id', $id)->first();
@@ -56,7 +56,7 @@ class PostAdmin extends BaseController
 
     //--------------------------------------------------------------
 
-    public function edit($id)
+    public function edit(int $id)
     {
         // get the article to edit
         $post = new PostModel();
@@ -86,7 +86,7 @@ class PostAdmin extends BaseController
 
     //--------------------------------------------------------------
 
-    public function delete($id)
+    public function delete(int $id)
     {
         $post = new PostModel();
         $post->delete($id);
