@@ -8,21 +8,26 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>" />
 </head>
+
 <body>
+
+    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container">
             <a class="navbar-brand" href="<?= base_url() ?>">MyBlog</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarNav" aria-controls="navbarNav"
-                aria-expanded="false" aria-label="Toggle navigation">
+                data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="<?= base_url('admin/post') ?>">Blog</a>
                     </li>
                 </ul>
+
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="<?= base_url('admin/post/new') ?>"
@@ -39,34 +44,54 @@
         </div>
     </nav>
 
+    <!-- HEADER -->
     <div class="p-5 mb-4 bg-light rounded-3">
         <div class="container py-5">
             <h1 class="display-5 fw-bold">Blog > Admin</h1>
         </div>
     </div>
 
-    <!--creat-->
+    <!-- FORM -->
     <div class="container">
-    <form action="" method="post" id="text-editor">
-        <div class="form-group mb-2">
-            <label for="title">Title</label>
-            <input type="text" name="title" class="form-control"
-                   placeholder="Post title" required>
-        </div>
-        <div class="form-group mb-2">
-            <textarea name="content" class="form-control" cols="30" rows="10"
-                      placeholder="Write a great post!"></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" name="status" value="published"
-                    class="btn btn-primary">Publish</button>
-            <button type="submit" name="status" value="draft"
-                    class="btn btn-secondary">Save to Draft</button>
-        </div>
-    </form>
-</div>
+        <form action="" method="post" id="text-editor">
 
+            <!-- TITLE -->
+            <div class="form-group mb-2">
+                <label for="title">Title</label>
+                <input type="text" name="title" class="form-control"
+                       placeholder="Post title" required>
+            </div>
 
+            <!-- CONTENT -->
+            <div class="form-group mb-2">
+                <textarea name="content" class="form-control" cols="30" rows="10"
+                          placeholder="Write a great post!"></textarea>
+            </div>
+
+            <!-- 🔥 KATEGORI (INI YANG DIPINDAH KE DALAM FORM) -->
+            <div class="form-group mb-2">
+                <label>Kategori</label>
+                <select name="category_id" class="form-control">
+                    <?php foreach ($categories as $c): ?>
+                        <option value="<?= $c['id']; ?>">
+                            <?= $c['name']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <!-- BUTTON -->
+            <div class="form-group">
+                <button type="submit" name="status" value="published"
+                        class="btn btn-primary">Publish</button>
+                <button type="submit" name="status" value="draft"
+                        class="btn btn-secondary">Save to Draft</button>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- FOOTER -->
     <div class="container py-4">
         <footer class="pt-3 mt-4 text-muted border-top">
             <div class="container">
@@ -75,7 +100,7 @@
         </footer>
     </div>
 
-    <!-- jQuery and Bootstrap JS -->
+    <!-- JS -->
     <script src="<?= base_url('js/jquery.min.js') ?>"></script>
     <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
 

@@ -12,6 +12,7 @@ $routes->get('/faqs', 'Page::faqs');
 
 $routes->get('/post', 'Post::index');
 $routes->get('/post/(:any)', 'Post::viewPost/$1');
+$routes->post('/post/comment', 'Post::comment');
 
 $routes->group('admin', function($routes){
     $routes->get('post', 'PostAdmin::index', ['filter' => 'login']);
@@ -19,4 +20,5 @@ $routes->group('admin', function($routes){
     $routes->add('post/new', 'PostAdmin::create');
     $routes->add('post/(:segment)/edit', 'PostAdmin::edit/$1');
     $routes->get('post/(:segment)/delete', 'PostAdmin::delete/$1');
+
 });
