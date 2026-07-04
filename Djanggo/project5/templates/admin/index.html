@@ -1,0 +1,72 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+{# ================================================================= #}
+{# [KUSTOM] FILE BARU: dashboard admin custom                        #}
+{#   - Kartu statistik (data dari posts/adminsite.py)                 #}
+{#   - Tombol aksi cepat + panel "Pesan Terbaru"                      #}
+{#   - App list bawaan Django tetap ditampilkan di bawah              #}
+{# ================================================================= #}
+
+{% block coltype %}colM{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+	{# ==================== DASHBOARD CUSTOM ==================== #}
+	<div class="mb-dashboard">
+
+		{# --- Kartu statistik --- #}
+		<div class="mb-stats">
+			<div class="mb-stat">
+				<div class="mb-stat-icon">📨</div>
+				<div class="mb-stat-num">{{ dashboard_stats.total|default:"0" }}</div>
+				<div class="mb-stat-label">Total Pesan</div>
+			</div>
+			<div class="mb-stat">
+				<div class="mb-stat-icon">📅</div>
+				<div class="mb-stat-num">{{ dashboard_stats.today|default:"0" }}</div>
+				<div class="mb-stat-label">Hari Ini</div>
+			</div>
+			<div class="mb-stat">
+				<div class="mb-stat-icon">🗓️</div>
+				<div class="mb-stat-num">{{ dashboard_stats.week|default:"0" }}</div>
+				<div class="mb-stat-label">7 Hari Terakhir</div>
+			</div>
+			<div class="mb-stat">
+				<div class="mb-stat-icon">⏱️</div>
+				<div class="mb-stat-num mb-stat-num--sm">
+					{{ dashboard_stats.last_at|date:"d M, H:i"|default:"—" }}
+				</div>
+				<div class="mb-stat-label">Pesan Terakhir</div>
+			</div>
+		</div>
+
+		{# --- Aksi cepat --- #}
+		<div class="mb-actions">
+			<a class="mb-btn" href="{% url 'admin:posts_post_add' %}">➕ Tambah Pesan</a>
+			<a class="mb-btn mb-btn-ghost" href="{% url 'admin:posts_post_changelist' %}">📋 Semua Pesan</a>
+			<a class="mb-btn mb-btn-ghost" href="/" target="_blank" rel="noopener">🌐 Lihat Situs</a>
+		</div>
+
+		{# --- Pesan terbaru --- #}
+		<div class="mb-panel">
+			<div class="mb-panel-title">Pesan Terbaru</div>
+			<div class="mb-recent">
+				{% for post in recent_posts %}
+					<a class="mb-recent-item" href="{% url 'admin:posts_post_change' post.pk %}">
+						<span class="mb-avatar">{{ post.text|first|upper }}</span>
+						<span class="mb-recent-text">{{ post.text|truncatechars:70 }}</span>
+						<span class="mb-recent-time">{{ post.created_at|date:"d M Y, H:i" }}</span>
+					</a>
+				{% empty %}
+					<p class="mb-empty">📭 Belum ada pesan.</p>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	{# ==================== APP LIST BAWAAN ==================== #}
+	{% include "admin/app_list.html" with app_list=app_list show_changelinks=True %}
+
+</div>
+{% endblock %}

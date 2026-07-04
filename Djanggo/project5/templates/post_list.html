@@ -1,0 +1,77 @@
+{% load static %}
+{# ================================================================= #}
+{# [KUSTOM] File ini dirombak total (halaman pengguna / homepage):    #}
+{#   - Redesign: hero, kartu pesan, avatar, timestamp, responsive     #}
+{#   - FITUR 1: kotak cari pesan                                       #}
+{#   - FITUR 2: chip urutkan (Terbaru / Terlama)                       #}
+{#   - View-only: tidak ada form kirim pesan di sini                   #}
+{# ================================================================= #}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Message Board</title>
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+	<header class="hero">
+		<h1>💬 Message Board</h1>
+		<p>Papan pesan — lihat semua pesan yang masuk.</p>
+		<span class="badge">{{ total }} pesan total</span>
+	</header>
+
+	<main class="container">
+		<!-- Fitur 1: cari pesan -->
+		<form method="get" class="search">
+			<input type="text" name="q" value="{{ query }}"
+				placeholder="🔍 Cari pesan...">
+			<input type="hidden" name="sort" value="{{ sort }}">
+			<button type="submit" class="btn">Cari</button>
+			{% if query %}
+				<a href="{% url 'home' %}" class="btn btn-ghost">Reset</a>
+			{% endif %}
+		</form>
+
+		<!-- Fitur 2: urutkan pesan -->
+		<div class="toolbar">
+			<span class="toolbar-label">Urutkan:</span>
+			<a class="chip {% if sort != 'lama' %}chip-active{% endif %}"
+				href="?sort=baru{% if query %}&q={{ query|urlencode }}{% endif %}">Terbaru</a>
+			<a class="chip {% if sort == 'lama' %}chip-active{% endif %}"
+				href="?sort=lama{% if query %}&q={{ query|urlencode }}{% endif %}">Terlama</a>
+		</div>
+
+		{% if query %}
+			<p class="search-info">
+				Hasil pencarian untuk <b>"{{ query }}"</b> —
+				{{ post_list|length }} pesan ditemukan.
+			</p>
+		{% endif %}
+
+		<!-- Daftar pesan (read-only) -->
+		<ul class="posts">
+			{% for post in post_list %}
+				<li class="post">
+					<div class="post-text">{{ post.text }}</div>
+					<div class="post-meta">
+						<span class="avatar">{{ post.text|first|upper }}</span>
+						<span>{{ post.created_at|date:"d M Y, H:i" }}</span>
+					</div>
+				</li>
+			{% empty %}
+				<div class="empty">
+					<span class="emoji">
+						{% if query %}🔍{% else %}📭{% endif %}
+					</span>
+					{% if query %}
+						Gak ada pesan yang cocok dengan pencarianmu.
+					{% else %}
+						Belum ada pesan di papan ini.
+					{% endif %}
+				</div>
+			{% endfor %}
+		</ul>
+	</main>
+</body>
+</html>

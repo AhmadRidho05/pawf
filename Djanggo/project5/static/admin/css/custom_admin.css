@@ -1,0 +1,332 @@
+/* ============================================================
+   [KUSTOM] FILE BARU: tema tampilan halaman ADMIN (indigo) + dashboard
+   Di-inject lewat templates/admin/base_site.html
+   ============================================================ */
+
+/* ---- Override CSS variable bawaan (light & dark) ---- */
+:root,
+html[data-theme="light"],
+html[data-theme="dark"] {
+	--primary: #6366f1;
+	--secondary: #4f46e5;
+	--accent: #a855f7;
+	--primary-fg: #ffffff;
+
+	--header-color: #e0e7ff;
+	--header-branding-color: #ffffff;
+	--header-bg: #312e81;
+	--header-link-color: #ffffff;
+
+	--breadcrumbs-fg: #c7d2fe;
+	--breadcrumbs-link-fg: #ffffff;
+	--breadcrumbs-bg: #4338ca;
+
+	--link-fg: #4f46e5;
+	--link-hover-color: #3730a3;
+	--link-selected-fg: #4338ca;
+
+	--button-bg: #6366f1;
+	--button-fg: #ffffff;
+	--button-hover-bg: #4f46e5;
+	--default-button-bg: #4f46e5;
+	--default-button-hover-bg: #4338ca;
+
+	--object-tools-bg: #4f46e5;
+	--object-tools-fg: #ffffff;
+	--object-tools-hover-bg: #4338ca;
+}
+
+/* ---- Global ---- */
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+		Arial, sans-serif;
+}
+
+body:not(.login) #main {
+	background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 220px);
+}
+
+/* ---- Header ---- */
+#header {
+	background: linear-gradient(135deg, #312e81 0%, #4f46e5 100%);
+	box-shadow: 0 6px 20px -12px rgba(49, 46, 129, 0.7);
+	padding: 14px 40px;
+}
+
+#branding h1,
+#branding h1 a:link,
+#branding h1 a:visited {
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	color: #ffffff;
+}
+
+/* ---- Breadcrumbs ---- */
+div.breadcrumbs {
+	font-weight: 500;
+	padding: 12px 40px;
+}
+
+/* ---- Content padding ---- */
+#content {
+	padding: 24px 40px 40px;
+}
+
+/* ============================================================
+   DASHBOARD
+   ============================================================ */
+.mb-dashboard {
+	margin-bottom: 32px;
+}
+
+/* --- Kartu statistik --- */
+.mb-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 16px;
+	margin-bottom: 20px;
+}
+
+.mb-stat {
+	background: #ffffff;
+	border: 1px solid rgba(99, 102, 241, 0.14);
+	border-radius: 16px;
+	padding: 20px;
+	box-shadow: 0 12px 30px -24px rgba(15, 23, 42, 0.5);
+	position: relative;
+	overflow: hidden;
+	transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.mb-stat::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 4px;
+	background: linear-gradient(90deg, #6366f1, #a855f7);
+}
+
+.mb-stat:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 18px 34px -22px rgba(99, 102, 241, 0.55);
+}
+
+.mb-stat-icon {
+	font-size: 1.5rem;
+	margin-bottom: 6px;
+}
+
+.mb-stat-num {
+	font-size: 2rem;
+	font-weight: 800;
+	color: #1e1b4b;
+	line-height: 1.1;
+	letter-spacing: -0.02em;
+}
+
+.mb-stat-num--sm {
+	font-size: 1.15rem;
+}
+
+.mb-stat-label {
+	margin-top: 4px;
+	font-size: 0.82rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #64748b;
+}
+
+/* --- Aksi cepat --- */
+.mb-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 24px;
+}
+
+.mb-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: #6366f1;
+	color: #ffffff !important;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 0.92rem;
+	padding: 11px 18px;
+	border-radius: 12px;
+	border: 1.5px solid transparent;
+	transition: background 0.15s, transform 0.05s;
+}
+
+.mb-btn:hover {
+	background: #4f46e5;
+}
+
+.mb-btn:active {
+	transform: translateY(1px);
+}
+
+.mb-btn-ghost {
+	background: #ffffff;
+	color: #4f46e5 !important;
+	border-color: rgba(99, 102, 241, 0.25);
+}
+
+.mb-btn-ghost:hover {
+	background: #eef2ff;
+}
+
+/* --- Panel pesan terbaru --- */
+.mb-panel {
+	background: #ffffff;
+	border: 1px solid rgba(99, 102, 241, 0.14);
+	border-radius: 16px;
+	padding: 20px 22px;
+	box-shadow: 0 12px 30px -26px rgba(15, 23, 42, 0.5);
+}
+
+.mb-panel-title {
+	font-size: 0.8rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+	color: #64748b;
+	margin-bottom: 14px;
+}
+
+.mb-recent-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 8px;
+	border-radius: 10px;
+	text-decoration: none;
+	color: #1e293b;
+	border-bottom: 1px solid #f1f5f9;
+	transition: background 0.12s;
+}
+
+.mb-recent-item:last-child {
+	border-bottom: none;
+}
+
+.mb-recent-item:hover {
+	background: rgba(99, 102, 241, 0.06);
+}
+
+.mb-avatar {
+	flex: 0 0 auto;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, #6366f1, #a855f7);
+	color: #ffffff;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 0.9rem;
+}
+
+.mb-recent-text {
+	flex: 1;
+	font-size: 0.95rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.mb-recent-time {
+	flex: 0 0 auto;
+	font-size: 0.78rem;
+	color: #94a3b8;
+}
+
+.mb-empty {
+	color: #94a3b8;
+	padding: 16px 8px;
+}
+
+/* ============================================================
+   KOMPONEN ADMIN BAWAAN
+   ============================================================ */
+
+/* Modul (app list & tabel) jadi kartu */
+.module {
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 10px 28px -24px rgba(15, 23, 42, 0.45);
+	border: 1px solid rgba(99, 102, 241, 0.12);
+	background: #ffffff;
+}
+
+.module caption,
+.module h2,
+.inline-group h2 {
+	letter-spacing: 0.01em;
+}
+
+/* Tombol rounded */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+	border-radius: 8px;
+	transition: background 0.15s, transform 0.05s;
+}
+
+.button:active,
+input[type="submit"]:active {
+	transform: translateY(1px);
+}
+
+/* Object tools (tombol Add di kanan atas) */
+.object-tools a {
+	border-radius: 999px;
+}
+
+/* Input & fokus ring */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+textarea,
+select {
+	border-radius: 8px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+	outline: none;
+	border-color: #6366f1;
+	box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.28);
+}
+
+/* Hover baris tabel */
+#changelist table tbody tr:hover {
+	background: rgba(99, 102, 241, 0.06);
+}
+
+/* ---- Halaman login: kartu melayang ---- */
+.login #container {
+	border-radius: 16px;
+	box-shadow: 0 24px 60px -30px rgba(49, 46, 129, 0.55);
+	overflow: hidden;
+	border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.login #header {
+	border-radius: 0;
+	justify-content: center;
+}
+
+.login .submit-row input {
+	width: 100%;
+}
